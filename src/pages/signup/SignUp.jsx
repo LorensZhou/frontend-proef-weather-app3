@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './SignUp.css';
 
 function SignUp() {
   // state voor het formulier
@@ -28,7 +29,7 @@ function SignUp() {
       // Let op: omdat we geen axios Canceltoken gebruiken zul je hier een memory-leak melding krijgen.
       // Om te zien hoe je een canceltoken implementeerd kun je de bonus-branch bekijken!
 
-      // als alles goed gegaan is, linken we dyoor naar de login-pagina
+      // als alles goed gegaan is, linken we door naar de login-pagina
       navigate('/signin');
     } catch(e) {
       console.error(e);

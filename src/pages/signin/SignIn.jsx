@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
+import './SignIn.css';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -14,15 +15,18 @@ function SignIn() {
     toggleError(false);
 
     try {
-      const result = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('http://localhost:3000/login', {
         email: email,
         password: password,
       });
       // log het resultaat in de console
-      console.log(result.data);
+      console.log(response.data);
 
       // geef de JWT token aan de login-functie van de context mee
-      login(result.data.accessToken);
+      if(response.status === 200) {
+        //aanroep van login functie uit AuthContext
+        login(response.data.accessToken);
+      }
 
     } catch(e) {
       console.error(e);

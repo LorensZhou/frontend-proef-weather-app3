@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
+import './Profile.css';
+
 
 function Profile() {
   const [profileData, setProfileData] = useState({});

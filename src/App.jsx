@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Route, Navigate, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Profile from './pages/Profile';
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import NavBar from './components/navbar/NavBar.jsx';
+import Profile from './pages/profile/Profile.jsx';
+import Home from './pages/home/Home.jsx';
+import SignIn from './pages/signin/SignIn.jsx';
+import SignUp from './pages/signup/SignUp.jsx';
 import { AuthContext } from './context/AuthContext';
 import './App.css';
 
