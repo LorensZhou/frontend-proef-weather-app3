@@ -7,6 +7,9 @@ import SignIn from './pages/signin/SignIn.jsx';
 import SignUp from './pages/signup/SignUp.jsx';
 import { AuthContext } from './context/AuthContext';
 import './App.css';
+import CurrentWeather from "./pages/currentWeather/CurrentWeather.jsx";
+import Forecast from "./pages/forecast/Forecast.jsx";
+import CityPage from "./pages/cityPage/CityPage.jsx";
 
 function App() {
     const { isAuth } = useContext(AuthContext);
@@ -20,6 +23,9 @@ function App() {
                     <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/login"/>}/>
                     <Route path="/signin" element={<SignIn />}/>
                     <Route path="/signup" element={<SignUp />}/>
+                    <Route path="/currentWeather" element={<CurrentWeather />}/>
+                    <Route path="/forecast" element={<Forecast />}/>
+                    <Route path="/cityPage" element={<CityPage />}/>
                 </Routes>
             </div>
         </>
