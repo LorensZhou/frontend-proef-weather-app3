@@ -4,6 +4,30 @@ is het voor deze opdracht wel gedaan!*/
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&family=Neucha&display=swap');
 
+
+/*////////////////////////////////////////////////////////////////////////
+Table of Contents:
+    1. Global Styles
+    2. Typografie
+    3. layout
+    4. Areas
+    5. Media Queries
+////////////////////////////////////////////////////////////////////////*/
+
+/*1.Global Styles //////////////////////////////*/
+
+/*colors*/
+:root{
+  --black-norm-text: #0C0C0C;
+  --background-grey: #7A7A7A;
+  --background-lightgrey: #F3F6F9;
+  --background-white: #F2F0FF;
+  --purple: #5722CD;
+  --blue: #4845E4;
+  --pink: #ED4385;
+}
+
+
 /*css reset*/
 *{
     box-sizing: border-box;
@@ -20,15 +44,109 @@ body {
   color: #051524;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/*body{*/
+/*  font-family: "Roboto", serif;*/
+/*  font-weight: 300;*/
+/*  font-style: normal;*/
+/*  color: var(--black-norm-text);*/
+/*}*/
+
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Neucha', 'Times New Roman', cursive;
 }
 
+h1{
+  margin: 10px;
+}
+
+/*h1, h2, h3, h4, h5, h6{*/
+/*  font-family: "Merriweather", serif;*/
+/*  font-weight: 700;*/
+/*  font-style: normal;*/
+/*}*/
+
+/*2.Typografie/////////////////////////////////*/
+
+/*3.layout/////////////////////////////////*/
+/*3.1 reusable*/
+
+.outer-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 2px solid black;
+}
+
+.inner-container{
+  flex-basis: 1200px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+  border: 2px dashed orange;
+}
+
+/*4. Areas//////////////////////////////////////*/
+/*4.1 header*/
+.header-section{
+  background-color: var(--blue);
+  color: white;
+}
+.header-container{
+  border: 2px dashed red;
+}
+.header-content-text{
+  border: 2px dashed green;
+}
+.header-navigation{
+  width: 100%;
+  border: 2px dashed orange;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+.header-navigation ul {
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-basis: 500px;
+}
+
+/*4.2 intro*/
+/*4.3 rolling st*/
+/*4.4 variety*/
+/*4.5 worth*/
+/*4.6 services*/
+/*4.7 form*/
+/*4.8 footer*/
+
+/*5. Media Queries//////////////////////////////*/
+html {
+  /* voor mobiel */
+  font-size: 1rem;
+  background-color: var(--background-grey);
+}
+
+@media screen and (min-width: 900px) {
+  /* voor tablets */
+  html {
+    font-size: 1.1rem;
+    background-color: white;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  /* voor desktops en groter */
+  html {
+    font-size: 1.25rem;
+    background-color: var(--background-lightgrey);
+  }
+}
 
 /*Algemene button styling*/
 button {
@@ -37,7 +155,8 @@ button {
   /*color: white;*/
   padding: 8px 16px;
   /*background-color: #f5ab00;*/
-  background-color: #f0f0f0;
+  /*background-color: #f0f0f0;*/
+  background-color: var(--background-white);
   color: black;
   font-weight: bold;
   margin-left: 10px;

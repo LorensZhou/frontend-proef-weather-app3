@@ -1,16 +1,21 @@
 import React from 'react';
 import cities from '../../constants/cities.js';
-import './CityPage.css';
+import './CitiesPage.css';
 import dutchNumberFormat from '../../helper/dutchNumberFormat.js';
+import {Link} from 'react-router-dom';
+import Button from '../../components/button/Button.jsx';
 
-function CityPage() {
+function CitiesPage() {
     return (
         <div>
             <h1>Steden Pagina</h1>
             <p>Hier komt de functionaliteit voor de stad pagina.</p>
             <form>
                 <input type="text" placeholder="Zoekterm" />
-                <button type="submit">Zoeken stad</button>
+                <Button type="submit"
+                        variant="primary">
+                    Zoeken stad
+                </Button>
             </form>
             <div className="cities-container">
                 <ul>
@@ -18,7 +23,8 @@ function CityPage() {
                         return (
                             <div className="city-item" key={city.number}>
                                 <li>
-                                    <p>{city.number}. {city.name}, inwoners aantal: {dutchNumberFormat(city.inhabitants)}</p>
+                                    <p>{city.number}. <Link to={`/cities/${city.number}`}>{city.name}</Link>, inwoners aantal: {dutchNumberFormat(city.inhabitants)}
+                                    </p>
                                 </li>
                             </div>
                         )
@@ -29,4 +35,4 @@ function CityPage() {
     );
 }
 
-export default CityPage;
+export default CitiesPage;

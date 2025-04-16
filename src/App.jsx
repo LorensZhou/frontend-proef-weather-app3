@@ -9,7 +9,9 @@ import { AuthContext } from './context/AuthContext';
 import './App.css';
 import CurrentWeather from "./pages/currentWeather/CurrentWeather.jsx";
 import Forecast from "./pages/forecast/Forecast.jsx";
-import CityPage from "./pages/cityPage/CityPage.jsx";
+import CitiesPage from "./pages/citiesPage/CitiesPage.jsx";
+import CityDetailPage from "./pages/cityDetailPage/CityDetailPage.jsx";
+import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {
     const { isAuth } = useContext(AuthContext);
@@ -25,7 +27,9 @@ function App() {
                     <Route path="/signup" element={<SignUp />}/>
                     <Route path="/currentWeather" element={<CurrentWeather />}/>
                     <Route path="/forecast" element={<Forecast />}/>
-                    <Route path="/cityPage" element={<CityPage />}/>
+                    <Route path="/cities" element={<CitiesPage />}/>
+                    <Route path="/cities/:id" element={<CityDetailPage />}/>
+                    <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </div>
         </>
