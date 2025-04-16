@@ -3,6 +3,7 @@ import logo from '../../assets/weather-icon.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import './NavBar.css';
+import Button from '../button/Button.jsx';
 
 function NavBar() {
     const { isAuth, logout } = useContext(AuthContext);
@@ -45,55 +46,57 @@ function NavBar() {
 
             {isAuth ?
                 <div>
-                    <button
+                    <Button
                         type="button"
                         onClick={logout}
-                    >
+                        variant="primary">
                         Log uit
-                    </button>
+                    </Button>
 
-                    <div style={{position: 'relative', display: 'inline-block'}}>
-                        <button onClick={handleToggle}>
+                    <div className="dropdown-menu-container">
+                        <Button onClick={handleToggle}
+                                type="button"
+                                variant = "primary">
                             zoek menu
-                        </button>
+                        </Button>
                         {isOpen && (
                             <div ref={dropdownRef} className="dropdown-menu">
-                                <button
+                                <Button
                                     type="button"
-                                    onClick={() => handleNavigation('/currentWeather')}
-                                >
+                                    variant = "primary"
+                                    onClick={() => handleNavigation('/currentWeather')}>
                                     zoeken huidige weer
-                                </button>
-                                <button
+                                </Button>
+                                <Button
                                     type="button"
-                                    onClick={() => handleNavigation('/forecast')}
-                                >
+                                    variant = "primary"
+                                    onClick={() => handleNavigation('/forecast')}>
                                     zoeken weer voorspelling
-                                </button>
-                                <button
+                                </Button>
+                                <Button
                                     type="button"
-                                    onClick={() => handleNavigation('/cityPage')}
-                                >
+                                    variant = "primary"
+                                    onClick={() => handleNavigation('/cities')}>
                                     zoeken op een stad/locatie
-                                </button>
+                                </Button>
                             </div>
                         )}
                       </div>
                     </div>
                     :
                     <div>
-                        <button
+                        <Button
                             type="button"
-                            onClick={() => navigate('/signin')}
-                        >
+                            variant = "primary"
+                            onClick={() => navigate('/signin')}>
                             Log in
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             type="button"
-                            onClick={() => navigate('/signup')}
-                        >
+                            variant = "primary"
+                            onClick={() => navigate('/signup')}>
                             Registreren
-                        </button>
+                        </Button>
                     </div>
                     }
                 </nav>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css';
+import Button from "../../components/button/Button.jsx";
 
 function SignUp() {
   // state voor het formulier
@@ -79,13 +80,13 @@ function SignUp() {
             />
           </label>
           {error && <p className="error">Dit account bestaat al. Probeer een ander emailadres.</p>}
-          <button
+          <Button
               type="submit"
-              className="form-button"
+              variant="secundary"
               disabled={loading}
           >
             Registreren
-          </button>
+          </Button>
 
         </form>
 

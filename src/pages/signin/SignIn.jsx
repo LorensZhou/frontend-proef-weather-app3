@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
 import './SignIn.css';
+import Button from '../../components/button/Button.jsx';
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -63,12 +64,12 @@ function SignIn() {
           </label>
           {error && <p className="error">Combinatie van emailadres en wachtwoord is onjuist</p>}
 
-          <button
+          <Button
               type="submit"
-              className="form-button"
-          >
+              variant="secundary"
+             >
             Inloggen
-          </button>
+          </Button>
         </form>
 
         <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
