@@ -14,11 +14,13 @@ import CityDetailPage from "./pages/cityDetailPage/CityDetailPage.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {
-    const { isAuth } = useContext(AuthContext);
+    const { isAuth, logout } = useContext(AuthContext);
 
     return (
         <>
-            <NavBar />
+            <NavBar
+            isAuth = {isAuth}
+            logout = {logout}/>
             <div className="content">
                 <Routes>
                     <Route path="/" element={<Home />}/>

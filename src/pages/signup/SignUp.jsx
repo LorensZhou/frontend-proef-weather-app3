@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css';
 import Button from "../../components/button/Button.jsx";
+import Input from "../../components/input/Input.jsx";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
+import Loading from "../../components/loading/Loading.jsx";
 
 function SignUp() {
   // state voor het formulier
@@ -42,44 +45,49 @@ function SignUp() {
 
   return (
       <>
+        <section>
         <h1>Registreren</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque consectetur, dolore eaque eligendi
           harum, numquam, placeat quisquam repellat rerum suscipit ullam vitae. A ab ad assumenda, consequuntur deserunt
           doloremque ea eveniet facere fuga illum in numquam quia reiciendis rem sequi tenetur veniam?
         </p>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="email-field">
-            Emailadres:
-            <input
+
+            <Input
+                labelText="Emailadres:"
                 type="email"
                 id="email-field"
                 name="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                required={true}
+                handleChange={(e) => setEmail(e.target.value)}
             />
-          </label>
 
-          <label htmlFor="username-field">
-            Gebruikersnaam:
-            <input
+            <Input
+                labelText="Gebruikersnaam:"
                 type="text"
+                name="username"
                 id="username-field"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                required={true}
+                handleChange={(e) => setUsername(e.target.value)}
             />
-          </label>
 
-          <label htmlFor="password-field">
-            Wachtwoord:
-            <input
+            <Input
+                labelText="Wachtwoord:"
                 type="password"
                 id="password-field"
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                required={true}
+                handleChange={(e) => setPassword(e.target.value)}
             />
-          </label>
-          {error && <p className="error">Dit account bestaat al. Probeer een ander emailadres.</p>}
+
+          {error && <ErrorMessage
+                   message="Dit account bestaat al. Probeer een ander emailadres."/>}
+            {loading && <Loading
+                         loadingText="Een nieuwe account wordt aangemaakt..."/>}
+
           <Button
               type="submit"
               variant="secundary"
@@ -89,6 +97,7 @@ function SignUp() {
           </Button>
 
         </form>
+        </section>
 
         <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
       </>

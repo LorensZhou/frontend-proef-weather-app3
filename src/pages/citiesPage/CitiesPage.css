@@ -2,10 +2,10 @@ ul{
     list-style: none;
 }
 
-.cities-container{
-    margin: 20px;
-}
-
 .city-item{
     margin: 10px;
+}
+
+.text-container{
+    align-items: flex-start;
 }

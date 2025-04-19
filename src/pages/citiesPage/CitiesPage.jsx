@@ -8,16 +8,15 @@ import Button from '../../components/button/Button.jsx';
 function CitiesPage() {
     return (
         <div>
+            <section className="outer-container">
+                <div className="inner-container text-container">
             <h1>Steden Pagina</h1>
-            <p>Hier komt de functionaliteit voor de stad pagina.</p>
-            <form>
-                <input type="text" placeholder="Zoekterm" />
-                <Button type="submit"
-                        variant="primary">
-                    Zoeken stad
-                </Button>
-            </form>
-            <div className="cities-container">
+            <p>Hieronder staan de steden in Zuid-Holland met meer dan 10.000 inwoners.</p>
+            <p>Door op de link te klikken wordt u gestuurd naar de detailpagina waar de weervoorspellingen worden getoond. </p>
+            </div>
+                </section>
+            <section className="outer-container">
+            <div className="inner-container text-container">
                 <ul>
                     {cities.map((city)=>{
                         return (
@@ -31,6 +30,7 @@ function CitiesPage() {
                     })}
                 </ul>
             </div>
+            </section>
         </div>
     );
 }
