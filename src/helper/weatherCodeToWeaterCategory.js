@@ -1,23 +1,22 @@
-//helder weer 90%-100%: 800                        (pos 1)
-//gedeeltelijk bewolking 20%-50%: 801, 802          (pos 2 - 3)
-//overwegend bewolkt: 50%-90%: 803, 804             (pos 4 - 5)
-//slecht atmosfeer: 701, 711, 721, 731, 741         (pos 6 - 10)
-//zeer slecht atmosfeer: 751, 761, 762, 771, 781    (pos 11 - 15)
+//helder weer: 800                                 (pos 1)
+//gedeeltelijk bewolking 20%-50%: 801, 802         (pos 2 - 3)
+//overwegend bewolkt: 803, 804            (pos 4 - 5)
+//vervuilde lucht: 701, 711, 721, 731, 741         (pos 6 - 10)
+//zwaar vervuilde lucht: 751, 761, 762, 771, 781   (pos 11 - 15)
 
-//licht sneeuw: 611, 612, 613                       (pos 16 - 18)
-//gemiddeld sneeuw: 601, 615, 616, 620, 621         (pos 9- 24)
-//zwaar sneeuw: 602, 622                            (pos 25 - 26)
+//lichte sneeuw: 611, 612, 613                     (pos 16 - 18)
+//gemiddelde sneeuw: 601, 615, 616, 620, 621       (pos 9- 24)
+//zware sneeuw: 602, 622                           (pos 25 - 26)
 
-//licht regen: 500, 501, 520                        (pos 27 - 29)
-//middel zwaar regen: 521, 531                      (pos 30 - 31)
-//zwaar regen: 502, 503, 504, 522                   (pos 32 - 35)
+//lichte regen: 500, 501, 520                      (pos 27 - 29)
+//middel zwaar regen: 521, 531                     (pos 30 - 31)
+//zware regen: 502, 503, 504, 522                  (pos 32 - 35)
 
-//mot regen: 300, 301, 302, 310, 311, 312, 313, 321 (pos 36 - 43)
+//motregen: 300, 301, 302, 310, 311, 312, 313, 321 (pos 36 - 43)
 
-//licht onweer: 200, 210                            (pos 44 - 45)
-//gemiddeld onweer: 201, 211, 221, 230, 231, 232    (pos 46 - 51)
-//zwaar onweer: 202, 212                            (pos 52 - 53)
-
+//licht onweer: 200, 210                           (pos 44 - 45)
+//gemiddeld onweer: 201, 211, 221, 230, 231, 232   (pos 46 - 51)
+//zwaar onweer: 202, 212                           (pos 52 - 53)
 
 function weatherCodeToWeatherCategory(weatherCode) {
     import weatherCodes from "../constants/weatherCodes";
@@ -36,31 +35,31 @@ function weatherCodeToWeatherCategory(weatherCode) {
             category = "overwegend bewolkt";
             break;
         case indexNum < 10:
-            category = "slecht atmosfeer";
+            category = "vervuilde lucht";
             break;
         case indexNum < 15:
-            category = "zeer slecht atmosfeer";
+            category = "zwaar vervuilde lucht";
             break;
         case indexNum < 18:
-            category = "licht sneeuw";
+            category = "lichte sneeuw";
             break;
         case indexNum < 24:
-            category = "gemiddeld sneeuw";
+            category = "gemiddelde sneeuw";
             break;
         case indexNum < 26:
-            category = "zwaar sneeuw";
+            category = "zware sneeuw";
             break;
         case indexNum < 29:
-            category = "licht regen";
+            category = "lichte regen";
             break;
         case indexNum < 31:
             category = "middel zwaar regen";
             break;
         case indexNum < 35:
-            category = "zwaar regen";
+            category = "zware regen";
             break;
         case indexNum < 43:
-            category = "mot regen";
+            category = "motregen";
             break;
         case indexNum < 45:
             category = "licht onweer";
@@ -76,3 +75,5 @@ function weatherCodeToWeatherCategory(weatherCode) {
     }
     return category;
 }
+
+export default weatherCodeToWeatherCategory;

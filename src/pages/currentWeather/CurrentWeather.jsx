@@ -47,14 +47,17 @@ function CurrentWeather() {
         // Do something with all the search terms (e.g., send to an API)
     };
 
+    const cityInputDisabled = searchMethod === "without-location";
+
     return (
         <>
             <div className="current-weather-container">
+                <section className="explanation-text-container">
                 <h1>Zoeken met huidige weer</h1>
                 <p>Hier kunt u zoeken met ingave van locatie of zonder ingave van locatie voor het weer van huidige moment.
-                   U kunt maximaal 6 locaties opgeven. Als u zoekt zonder locatie, dan worden random 6 locaties voor u geselecteerd.
-                    U kunt alleen zoeken op locatie met meer dan 10.000 inwoners in Zuid-Holland.
+                   U kunt maximaal 6 locaties opgeven. Als u zoekt zonder locatie, dan worden random 6 locaties voor u geselecteerd. U kunt alleen zoeken op locatie met meer dan 10.000 inwoners in Zuid-Holland.
                    Daarnaast kunt u minimaal een tot maximaal drie criteria's opgeven voor uw voorkeur van weer.</p>
+                </section>
 
                 <div className="search-method-container">
                     <select name="search" id="search-method" value={searchMethod} onChange={(e) => setSearchMethod(e.target.value)}>
@@ -63,6 +66,7 @@ function CurrentWeather() {
                         <option value="with-location">zoeken met locatie</option>
                     </select>
                 </div>
+
 
                 <section className="search-section">
                     <form className="search-form-flex" onSubmit={handleSubmit}>
@@ -74,7 +78,8 @@ function CurrentWeather() {
                                     label="plaats 1"
                                     inputId="city1"
                                     inputName="city1"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                             <div className="search-input-wrapper">
@@ -84,7 +89,8 @@ function CurrentWeather() {
                                     label="plaats 2"
                                     inputId="city2"
                                     inputName="city2"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                             <div className="search-input-wrapper">
@@ -94,7 +100,8 @@ function CurrentWeather() {
                                     label="plaats 3"
                                     inputId="city3"
                                     inputName="city3"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                             <div className="search-input-wrapper">
@@ -104,7 +111,8 @@ function CurrentWeather() {
                                     label="plaats 4"
                                     inputId="city4"
                                     inputName="city4"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                             <div className="search-input-wrapper">
@@ -114,7 +122,8 @@ function CurrentWeather() {
                                     label="plaats 5"
                                     inputId="city5"
                                     inputName="city5"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                             <div className="search-input-wrapper">
@@ -124,12 +133,13 @@ function CurrentWeather() {
                                     label="plaats 6"
                                     inputId="city6"
                                     inputName="city6"
-                                    maxSuggestions={10}
+                                    maxSuggestions={20}
+                                    disabled={cityInputDisabled}
                                 />
                             </div>
                         </div>
                         <div className="search-criteria-flex">
-                            <div className="criteria-search-wrapper">
+                            <div className="search-criteria-wrapper">
                                 <label htmlFor="weatherSelection" className="weather-selection-container">
                                     Selecteer het weer:
                                 </label>
@@ -145,8 +155,10 @@ function CurrentWeather() {
                                         </option>
                                     ))}
                                 </select>
+
                             </div>
-                            <div className="criteria-search-wrapper">
+                            <div className="search-criteria-wrapper">
+                                <div className="temp-selection-container">
                                 <Input
                                     type="number"
                                     name="temperature"
@@ -154,14 +166,17 @@ function CurrentWeather() {
                                     required={false}
                                     value={preferredTemp}
                                     handleChange={handleTempChange}/>
+                                </div>
                             </div>
-                            <div className="criteria-search-wrapper">
+                            <div className="search-criteria-wrapper">
                                 <Input
                                     type="number"
                                     name="weatherCriteria"
                                     labelText="voorkeur windkracht:"
                                     required={false}
                                     value={preferredWindSpeed}
+                                    maxValue={12}
+                                    minValue={0}
                                     handleChange={handleWindChange}/>
                             </div>
 

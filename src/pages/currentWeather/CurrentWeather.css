@@ -53,7 +53,7 @@
 }
 
 .search-input-wrapper,
-.criteria-search-wrapper{
+.search-criteria-wrapper{
     flex-basis: calc(33% - 7.5px); /* Three items per row with spacing */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     margin: 15px 0;
@@ -74,7 +74,7 @@
 
 .search-form-flex input[type="text"] {
     padding: 8px;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     border-radius: 4px;
     flex-grow: 1; /* Allow input to expand */
     width: 70px; /* Full width */
@@ -91,12 +91,9 @@
 }
 
 .search-form-flex .dropdown {
-    position: absolute;
     background-color: white;
-    border: 1px solid #ddd;
     border-radius: 4px;
     width: 300px;
-    z-index: 10;
     max-height: 200px;
     overflow-y: auto;
 }
@@ -131,4 +128,12 @@
 
 .search-criteria-flex label{
     display: block;
+}
+
+.weather-selection-container{
+    margin-top: 7px;
+}
+
+.temp-selection-container{
+    margin-left: 40px;
 }

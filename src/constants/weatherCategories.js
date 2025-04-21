@@ -1,9 +1,9 @@
 
 const weatherCategories = [
-    "helder weer", "gedeeltelijk bewolking 20%-50%", "overwegend bewolkt",
-    "slecht atmosfeer", "zeer slecht atmosfeer", "licht sneeuw",
-    "gemiddeld sneeuw", "zwaar sneeuw", "licht regen",
-    "middel zwaar regen", "zwaar regen", "mot regen",
+    "helder weer", "gedeeltelijke bewolking (20%-50%)", "overwegend bewolkt",
+    "vervuilde lucht", "zwaar vervuilde lucht", "lichte sneeuw",
+    "gemiddelde sneeuw", "zware sneeuw", "lichte regen",
+    "middel zwaar regen", "zware regen", "motregen",
     "licht onweer", "gemiddeld onweer", "zwaar onweer",
 ]
 
