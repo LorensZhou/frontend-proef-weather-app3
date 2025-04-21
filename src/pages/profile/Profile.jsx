@@ -3,15 +3,89 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
 import './Profile.css';
-
+import SearchableInput from "../../components/searchableInput/SearchableInput.jsx";
+import cities from "../../constants/cities.js";
+import getLocalStorageCities from "../../helper/getLocalStorageCities.js";
+import sortedWithoutEmptyString from "../../helper/sortedWithoutEmptyString.js";
+import Loading from "../../components/loading/Loading.jsx";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
 
 function Profile() {
   const [profileData, setProfileData] = useState({});
   const { user } = useContext(AuthContext);
+  const cityNames = cities.map(city => city.name);
+  const cityKeys = ["city1", "city2", "city3", "city4", "city5", "city6"];
+
+  const [error, toggleError]  = useState(false);
+  const [loading, toggleLoading] = useState(false);
+
+  const [city1, setCity1] = useState("");
+  const [city2, setCity2] = useState("");
+  const [city3, setCity3] = useState("");
+  const [city4, setCity4] = useState("");
+  const [city5, setCity5] = useState("");
+  const [city6, setCity6] = useState("");
+
+  const [city1Disabled, togCity1Disabled] = useState(true);
+  const [city2Disabled, togCity2Disabled] = useState(true);
+  const [city3Disabled, togCity3Disabled] = useState(true);
+  const [city4Disabled, togCity4Disabled] = useState(true);
+  const [city5Disabled, togCity5Disabled] = useState(true);
+  const [city6Disabled, togCity6Disabled] = useState(true);
+
+  const handleSearch1 = (value) => setCity1(value);
+  const handleSearch2 = (value) => setCity2(value);
+  const handleSearch3 = (value) => setCity3(value);
+  const handleSearch4 = (value) => setCity4(value);
+  const handleSearch5 = (value) => setCity5(value);
+  const handleSearch6 = (value) => setCity6(value);
+
+    function citiesDisabled(toggle){
+        togCity1Disabled(toggle);
+        togCity2Disabled(toggle);
+        togCity3Disabled(toggle);
+        togCity4Disabled(toggle);
+        togCity5Disabled(toggle);
+        togCity6Disabled(toggle);
+    }
+
+    function handleCitiesDisabledFalse() {
+      citiesDisabled(false);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Prevent default form submission
+        const allCities = [city1, city2, city3, city4, city5, city6,];
+
+        const sortedCityNames =  sortedWithoutEmptyString(allCities);
+        if (typeof localStorage !== 'undefined') { // Dubbele check localStorage beschikbaarheid
+            const numEntries = sortedCityNames.length;
+            sortedCityNames.forEach((city, index) => {
+                localStorage.setItem( `city${index + 1}`, city ); // opslaan gesorteerde plaatsnamen in localStorage
+            });
+            for(let i = numEntries + 1; i < 7; i++) {
+                localStorage.setItem( `city${i}`, "" ); //opslaan lege strings in localStorage
+            }
+            //plaatsvelden vullen met juiste plaatsnamen zonder dubbele plaatsen
+            setCity1(localStorage.getItem("city1"));
+            setCity2(localStorage.getItem("city2"));
+            setCity3(localStorage.getItem("city3"));
+            setCity4(localStorage.getItem("city4"));
+            setCity5(localStorage.getItem("city5"));
+            setCity6(localStorage.getItem("city6"));
+
+            citiesDisabled(true);
+        }
+
+        console.log("sortedCityNames", sortedCityNames);
+    }
 
   useEffect(() => {
     // we halen de pagina-content op in de mounting-cycle
     async function fetchProfileData() {
+      toggleError(false);
+      toggleLoading(true);
+
       // haal de token uit de Local Storage om in het GET-request te bewijzen dat we geauthoriseerd zijn
       const token = localStorage.getItem('token');
 
@@ -25,30 +99,134 @@ function Profile() {
         setProfileData(result.data);
       } catch (e) {
         console.error(e);
+        toggleError(true);
       }
+      toggleLoading(false);
     }
 
     void fetchProfileData();
-  }, [])
+
+    //haal de cities uit de local storage geef het weer in de invulvelden
+    const citiesFromStorage = getLocalStorageCities(cityKeys);
+
+      //neem de waarden over van de local storage
+      if (citiesFromStorage.city1 !== undefined) setCity1(citiesFromStorage.city1); else setCity1("");
+      if (citiesFromStorage.city2 !== undefined) setCity2(citiesFromStorage.city2); else setCity2("");
+      if (citiesFromStorage.city3 !== undefined) setCity3(citiesFromStorage.city3); else setCity3("");
+      if (citiesFromStorage.city4 !== undefined) setCity4(citiesFromStorage.city4); else setCity4("");
+      if (citiesFromStorage.city5 !== undefined) setCity5(citiesFromStorage.city5); else setCity5("");
+      if (citiesFromStorage.city6 !== undefined) setCity6(citiesFromStorage.city6); else setCity6("");
+
+  }, []);
 
   return (
       <>
-        <h1>Profielpagina</h1>
-        <section>
-          <h2>Gegevens</h2>
-          <p><strong>Gebruikersnaam:</strong> {user.username}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-        </section>
+          <h1>Profielpagina</h1>
+          <section>
+              <h2>Gegevens</h2>
+              <p><strong>Gebruikersnaam:</strong> {user.username}</p>
+              <p><strong>Email:</strong> {user.email}</p>
+          </section>
 
-        {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
-        {Object.keys(profileData).length > 0 &&
-            <section>
-              <h2>Strikt geheime profiel-content</h2>
-              <h3>{profileData.title}</h3>
-              <p>{profileData.content}</p>
-            </section>
-        }
-        <p>Terug naar de <Link to="/">Homepagina</Link></p>
+          {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
+          {Object.keys(profileData).length > 0 &&
+              <section>
+                  <h2>Strikt geheime profiel-content</h2>
+                  <h3>{profileData.title}</h3>
+                  <p>{profileData.content}</p>
+              </section>
+          }
+          <h2>Opslaan favoriete plaatsen</h2>
+          <p>Hier komt de functionaliteit voor toevoegen, verwijderen en aanpassen van
+              favoriete plaatsen die kan worden gebruikt voor de zoekfunctie.</p>
+          {loading && <Loading loadingText="De data van de gebruiker wordt opgehaald....."/>}
+          {error && <ErrorMessage message="Er is een fout opgetreden bij het ophalen van de gebruiker data."/> }
+
+          <section className="search-section">
+              <form className="search-form-flex" onSubmit={handleSubmit}>
+                  <div className="search-inputs-flex">
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch1}
+                              label="plaats 1"
+                              inputId="city1"
+                              inputName="city1"
+                              initialValue={city1}
+                              maxSuggestions={20}
+                              disabled={city1Disabled}
+                          />
+                      </div>
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch2}
+                              label="plaats 2"
+                              inputId="city2"
+                              inputName="city2"
+                              initialValue={city2}
+                              maxSuggestions={20}
+                              disabled={city2Disabled}
+                          />
+                      </div>
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch3}
+                              label="plaats 3"
+                              inputId="city3"
+                              inputName="city3"
+                              initialValue={city3}
+                              maxSuggestions={20}
+                              disabled={city3Disabled}
+                          />
+                      </div>
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch4}
+                              label="plaats 4"
+                              inputId="city4"
+                              inputName="city4"
+                              initialValue={city4}
+                              maxSuggestions={20}
+                              disabled={city4Disabled}
+                          />
+                      </div>
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch5}
+                              label="plaats 5"
+                              inputId="city5"
+                              inputName="city5"
+                              initialValue={city5}
+                              maxSuggestions={20}
+                              disabled={city5Disabled}
+                          />
+                      </div>
+                      <div className="search-input-wrapper">
+                          <SearchableInput
+                              items={cityNames}
+                              onSearch={handleSearch6}
+                              label="plaats 6"
+                              inputId="city6"
+                              inputName="city6"
+                              initialValue={city6}
+                              maxSuggestions={20}
+                              disabled={city6Disabled}
+                          />
+                      </div>
+                  </div>
+                  <div className="button-container-flex">
+                      <button type="submit" className="submit-button-flex">Opslaan plaatsen</button>
+                      <button type="button" className="updating-button-flex" onClick={handleCitiesDisabledFalse}>Wijzigen plaatsen</button>
+                  </div>
+              </form>
+          </section>
+          <div className="link-container">
+              <p>Terug naar de <Link to="/">Homepagina</Link></p>
+          </div>
       </>
   );
 }

@@ -3,14 +3,22 @@ import './Home.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext.jsx';
 
+
 function Home() {
     const { isAuth } = useContext(AuthContext);
 
   return (
       <>
+      <div className="home-container">
+          <section>
+          <header className="banner-home">
+              {/*<img src={bgPicture} alt="A mountain landscape" className="background-image"/>*/}
+          </header>
+          </section>
+          <div className="content-container">
+          <section>
           <h1>Homepagina</h1>
-          <div className="outer-container">
-              <section className="inner-container">
+              <div className="text-section">
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem id libero provident! Accusantium
                       at autem
                       cumque, esse eum, fugiat ipsa ipsam quia quis ratione repudiandae sapiente sequi sit tempora
@@ -42,14 +50,16 @@ function Home() {
                       nesciunt sit
                       temporibus?
                   </p>
-              </section>
-              <section className="inner-container">
+              </div>
+          </section>
+          <section className="auth-section">
                   {isAuth && <p>Als je ingelogd bent, bekijk dan de <Link to="/profile">Profielpagina</Link></p>}
                   <p>Je kunt ook <Link to="/signin">inloggen</Link> of jezelf <Link to="/signup">registeren</Link> als
                       je nog geen
                       account hebt.</p>
-              </section>
+          </section>
           </div>
+      </div>
       </>
   );
 }

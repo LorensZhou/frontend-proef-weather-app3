@@ -86,7 +86,7 @@ function AuthContextProvider( { children } ) {
 
   const logout = () =>{
     console.log( 'Gebruiker is uitgelogd!' );
-    localStorage.clear();
+    localStorage.removeItem("token");
     setAuth( {
       isAuth: false,
       user: null,

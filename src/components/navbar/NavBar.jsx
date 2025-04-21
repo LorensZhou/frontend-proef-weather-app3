@@ -1,12 +1,10 @@
-import { useContext, useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import logo from '../../assets/weather-icon.png';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext.jsx';
 import './NavBar.css';
 import Button from '../button/Button.jsx';
 
-function NavBar() {
-    const { isAuth, logout } = useContext(AuthContext);
+function NavBar({isAuth, logout}) {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -34,6 +32,7 @@ function NavBar() {
     }, []);
 
     return (
+        <header>
         <nav>
             <Link to="/">
           <span className="logo-container">
@@ -45,13 +44,15 @@ function NavBar() {
             </Link>
 
             {isAuth ?
-                <div>
+                <div className="logged-in-buttons">
+                    <div id="logout-button-cont">
                     <Button
                         type="button"
                         onClick={logout}
                         variant="primary">
                         Log uit
                     </Button>
+                    </div>
 
                     <div className="dropdown-menu-container">
                         <Button onClick={handleToggle}
@@ -84,7 +85,7 @@ function NavBar() {
                       </div>
                     </div>
                     :
-                    <div>
+                    <div className="auth-buttons">
                         <Button
                             type="button"
                             variant = "primary"
@@ -100,7 +101,9 @@ function NavBar() {
                     </div>
                     }
                 </nav>
+        </header>
                 );
             }
+
 
             export default NavBar;

@@ -3,10 +3,10 @@ import './CityDetailPage.css';
 import {Link, useParams} from 'react-router-dom';
 import cities from "../../constants/cities.js";
 import axios from "axios";
-import kelvinToCelcius from "../../helper/kelvinToCelcius.js";
-import urlForWeatherIcon from "../../helper/urlForWeatherIcon.js";
-import formatDutchTime   from "../../helper/formatDutchTime.js";
 import Button from "../../components/button/Button.jsx";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
+import Loading from "../../components/loading/Loading.jsx";
+import ForecastTable from "../../components/forecastTable/ForecastTable.jsx";
 
 function CityDetailPage() {
     const {id} = useParams();
@@ -40,7 +40,6 @@ function CityDetailPage() {
             console.log(`lat waarde = ${geocodeCity.lat} en lon waarde = ${geocodeCity.lon}`);
 
             const resultWeatherCity =
-                //await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${geocodeCity.lat}&lon=${geocodeCity.lon}&appid=${apiKey}&lang=${language}`)
                 await axios.get(`https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${geocodeCity.lat}&lon=${geocodeCity.lon}&appid=${import.meta.env.VITE_API_KEY}&lang=${language}`)
             console.log(resultWeatherCity.data.list);
             setForecasts(resultWeatherCity.data.list.slice(0, 9));
@@ -59,36 +58,17 @@ function CityDetailPage() {
                      variant="primary">
                 ophalen weervoorspelling per uur
             </Button>
-            {error && <p className="error">Er is iets misgegaan. Het is niet gelukt om de weervoorspellingen op te halen</p>}
-            {loading && <p>Loading...</p>}
+            {error && <ErrorMessage
+                       message="Het is niet gelukt om de weervoorspellingen op te halen"/>}
+            {loading && <Loading
+                loadingText="De weervoorspellingen worden opgehaald..."/>}
 
             <div className="header-forecast"><p>De stad is {name} met {inhabitants} inwoners</p></div>
-            {forecasts.length > 0 &&
-                <table className="forecast-table">
-                <thead>
-                <tr>
-                    <th>Tijd</th>
-                    <th>Weer</th>
-                    <th>Temperatuur</th>
-                    <th>Voelt als</th>
-                    <th>Luchtvochtigheid</th>
-                </tr>
-                </thead>
-                <tbody>
-                {forecasts.map((forecast) => {
-                  return (
-                    <tr key={forecast.dt}>
-                            <td>{formatDutchTime(forecast.dt)}</td>
-                            <td className="weather-icon-td"><img className="weather-icon-style" src={urlForWeatherIcon(forecast.weather[0].icon)} alt="weer icon"/></td>
-                            <td>{kelvinToCelcius(forecast.main.temp)}°C</td>
-                            <td>{kelvinToCelcius(forecast.main.feels_like)}°C</td>
-                            <td>{forecast.main.humidity}%</td>
-                    </tr>);
-                })
-                }
-                </tbody>
-            </table>
-            }
+
+            {/*de voorspellingen worden weergegeven in een tabel*/}
+            <ForecastTable
+                forecasts={forecasts}
+            />
 
             <Link to="/cities" className="back-link">
                 <p>Terug naar de overzichtspagina</p>
