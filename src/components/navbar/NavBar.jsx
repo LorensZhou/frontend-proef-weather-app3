@@ -1,11 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import logo from '../../assets/weather-icon.png';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import Button from '../button/Button.jsx';
 
 function NavBar({isAuth, logout}) {
     const navigate = useNavigate();
+    const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -25,11 +26,14 @@ function NavBar({isAuth, logout}) {
     };
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    //checken of we op de login pagina zitten
+    const isSignInPage = location.pathname === "/signin";
 
     return (
         <header>
@@ -44,7 +48,7 @@ function NavBar({isAuth, logout}) {
             </Link>
 
             {isAuth ?
-                <div className="logged-in-buttons">
+                (<div className="logged-in-buttons">
                     <div id="logout-button-cont">
                     <Button
                         type="button"
@@ -65,40 +69,44 @@ function NavBar({isAuth, logout}) {
                                 <Button
                                     type="button"
                                     variant = "primary"
-                                    onClick={() => handleNavigation('/currentWeather')}>
+                                    onClick={() => handleNavigation("/currentWeather")}>
                                     zoeken huidige weer
                                 </Button>
                                 <Button
                                     type="button"
                                     variant = "primary"
-                                    onClick={() => handleNavigation('/forecast')}>
+                                    onClick={() => handleNavigation("/forecast")}>
                                     zoeken weer voorspelling
                                 </Button>
                                 <Button
                                     type="button"
                                     variant = "primary"
-                                    onClick={() => handleNavigation('/cities')}>
+                                    onClick={() => handleNavigation("/cities")}>
                                     zoeken op een stad/locatie
                                 </Button>
                             </div>
                         )}
                       </div>
                     </div>
+                    )
                     :
-                    <div className="auth-buttons">
-                        <Button
+                    (<div className="auth-buttons">
+                        {!isSignInPage && (<Button
                             type="button"
                             variant = "primary"
-                            onClick={() => navigate('/signin')}>
+                            onClick={() => navigate("/signin")}>
                             Log in
-                        </Button>
+                        </Button>)
+                        }
+
                         <Button
                             type="button"
                             variant = "primary"
-                            onClick={() => navigate('/signup')}>
+                            onClick={() => navigate("/signup")}>
                             Registreren
                         </Button>
                     </div>
+                    )
                     }
                 </nav>
         </header>

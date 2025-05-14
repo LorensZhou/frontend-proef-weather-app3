@@ -55,15 +55,6 @@
     font-size: 20px;
 }
 
-.search-form-flex button {
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
 .search-form-flex .dropdown {
     position: absolute;
     background-color: white;
@@ -86,10 +77,10 @@
 
 .search-form-flex .submit-button-flex,
 .search-form-flex .updating-button-flex{
-    background-color: lightslategrey; /* Green color for submit */
+    background-color: var(--background-button-lightgray);
     padding: 10px 20px;
     font-size: 16px;
-    align-self: center; /* Center the submit button */
+    align-self: center;
 }
 
 .button-container-flex{
