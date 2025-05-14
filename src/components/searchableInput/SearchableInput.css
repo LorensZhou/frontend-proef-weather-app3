@@ -3,6 +3,13 @@
     background-color: white;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .dropdown:empty {
@@ -22,6 +29,7 @@ input {
 
 .search-container {
     display: flex;
+    position: relative;
 }
 
 .dropdown-container{

@@ -1,13 +1,16 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import './CurrentWeather.css';
-import SearchableInput from "../../components/searchableInput/SearchableInput";
-import cities from "../../constants/cities.js";
-import Input from "../../components/input/Input.jsx";
-import weatherCategories from "../../constants/weatherCategories.js";
-
+import SearchableInput from '../../components/searchableInput/SearchableInput';
+import cities from '../../constants/cities.js';
+import Input from '../../components/input/Input.jsx';
+import weatherCategories from '../../constants/weatherCategories.js';
+import Button from '../../components/button/Button.jsx';
 
 function CurrentWeather() {
     const [searchMethod, setSearchMethod] = useState("");
+    const [criteriaDisabled, tglCriteriaDisabled] = useState(true);
+    const [cityInputDisabled, tglCityInputDisabled] = useState(true);
+    const [formBtnDisabled, tglFormBtnDisabled] = useState(true);
 
     const cityNames = cities.map((city) => city.name);
 
@@ -47,7 +50,28 @@ function CurrentWeather() {
         // Do something with all the search terms (e.g., send to an API)
     };
 
-    const cityInputDisabled = searchMethod === "without-location";
+    useEffect(() => {
+
+        if (searchMethod === "without-location")
+        {
+            tglCriteriaDisabled(false);
+            tglCityInputDisabled(true);
+            tglFormBtnDisabled(false);
+        }
+        else if(searchMethod === "with-location")
+        {
+            tglCriteriaDisabled(false);
+            tglCityInputDisabled(false);
+            tglFormBtnDisabled(false);
+        }
+        else if (searchMethod === "")
+        {
+            tglCriteriaDisabled(true);
+            tglCityInputDisabled(true);
+            tglFormBtnDisabled(true);
+        }
+
+    }, [searchMethod]);
 
     return (
         <>
@@ -147,7 +171,8 @@ function CurrentWeather() {
                                     id="weatherSelection"
                                     name="weather"
                                     value={selectedWeather}
-                                    onChange={handleWeatherChange}>
+                                    onChange={handleWeatherChange}
+                                    disabled={criteriaDisabled}>
                                     <option value="">-- Selecteer een optie --</option>
                                     {weatherCategories.map((category, index) => (
                                         <option key={`${index}-${category}`} value={category}>
@@ -165,7 +190,8 @@ function CurrentWeather() {
                                     labelText="voorkeur temperatuur:"
                                     required={false}
                                     value={preferredTemp}
-                                    handleChange={handleTempChange}/>
+                                    handleChange={handleTempChange}
+                                    disabled = {criteriaDisabled}/>
                                 </div>
                             </div>
                             <div className="search-criteria-wrapper">
@@ -177,11 +203,17 @@ function CurrentWeather() {
                                     value={preferredWindSpeed}
                                     maxValue={12}
                                     minValue={0}
-                                    handleChange={handleWindChange}/>
+                                    handleChange={handleWindChange}
+                                    disabled = {criteriaDisabled}/>
                             </div>
 
                             </div>
-                            <button type="submit" className="submit-button-flex">Ophalen zoekresultaten</button>
+                            <Button
+                                type="submit"
+                                className="secundary"
+                                disabled = {formBtnDisabled}
+                            >Ophalen zoekresultaten
+                            </Button>
                     </form>
                 </section>
 

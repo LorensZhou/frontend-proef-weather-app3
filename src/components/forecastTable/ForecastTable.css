@@ -3,8 +3,8 @@
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow-box toegevoegd */
-    border-radius: 8px; /* Border-radius toegevoegd */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow-box  */
+    border-radius: 8px; /* Border-radius */
     overflow: hidden; /* Zorgt ervoor dat de border-radius correct wordt toegepast op de interne elementen */
 }
 

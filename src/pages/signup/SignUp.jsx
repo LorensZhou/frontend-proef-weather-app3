@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css';
-import Button from "../../components/button/Button.jsx";
-import Input from "../../components/input/Input.jsx";
-import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
-import Loading from "../../components/loading/Loading.jsx";
+import Button from '../../components/button/Button.jsx';
+import Input from '../../components/input/Input.jsx';
+import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
+import Loading from '../../components/loading/Loading.jsx';
 
 function SignUp() {
   // state voor het formulier
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // state voor functionaliteit
   const [error, toggleError] = useState(false);
@@ -24,7 +24,7 @@ function SignUp() {
     toggleLoading(true);
 
     try {
-      await axios.post('http://localhost:3000/register', {
+      await axios.post("http://localhost:3000/register", {
         email: email,
         password: password,
         username: username,
@@ -34,7 +34,7 @@ function SignUp() {
       // Om te zien hoe je een canceltoken implementeerd kun je de bonus-branch bekijken!
 
       // als alles goed gegaan is, linken we door naar de login-pagina
-      navigate('/signin');
+      navigate("/signin");
     } catch(e) {
       console.error(e);
       toggleError(true);
@@ -90,7 +90,7 @@ function SignUp() {
 
           <Button
               type="submit"
-              variant="secundary"
+              variant="primary"
               disabled={loading}
           >
             Registreren

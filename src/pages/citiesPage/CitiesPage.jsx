@@ -3,7 +3,6 @@ import cities from '../../constants/cities.js';
 import './CitiesPage.css';
 import dutchNumberFormat from '../../helper/dutchNumberFormat.js';
 import {Link} from 'react-router-dom';
-import Button from '../../components/button/Button.jsx';
 
 function CitiesPage() {
     return (

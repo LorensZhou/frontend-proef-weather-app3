@@ -10,3 +10,12 @@
 .header-forecast{
     margin: 20px 0;
 }
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    background-color:var(--backgroudn-mediumgrey);
+    max-width: 300px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}

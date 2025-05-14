@@ -10,6 +10,7 @@ function getLocalStorageCities(allowedKeys){
 
     const allowedKeysSet = new Set(allowedKeys);
 
+    //Alle properties van local storage langsgaan om de waarden van de cities op te halen
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (allowedKeysSet.has(key)) {
@@ -25,10 +26,6 @@ function getLocalStorageCities(allowedKeys){
                     // console.warn(`Kon de waarde voor sleutel "${key}" niet parsen als JSON. Opslaan als ruwe string.`, error);
                     resultObject[key] = stringValue;
                 }
-            }
-            else {
-                // Sleutel bestaat wel volgens .key(i), maar .getItem retourneert null? (onwaarschijnlijk, maar veiliger)
-                // resultObject[key] = null; // Of undefined, afhankelijk van gewenst gedrag
             }
         }
     }

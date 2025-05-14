@@ -5,12 +5,12 @@ import axios from 'axios';
 import './SignIn.css';
 import Button from '../../components/button/Button.jsx';
 import Input from '../../components/input/Input.jsx';
-import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
-import Loading from "../../components/loading/Loading.jsx";
+import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
+import Loading from '../../components/loading/Loading.jsx';
 
 function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, toggleError] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const { login } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function SignIn() {
     toggleLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post("http://localhost:3000/login", {
         email: email,
         password: password,
       });
@@ -75,7 +75,7 @@ function SignIn() {
 
           <Button
               type="submit"
-              variant="secundary"
+              variant="primary"
              >
             Inloggen
           </Button>

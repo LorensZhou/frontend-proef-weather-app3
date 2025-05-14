@@ -7,11 +7,11 @@ import SignIn from './pages/signin/SignIn.jsx';
 import SignUp from './pages/signup/SignUp.jsx';
 import { AuthContext } from './context/AuthContext';
 import './App.css';
-import CurrentWeather from "./pages/currentWeather/CurrentWeather.jsx";
-import Forecast from "./pages/forecast/Forecast.jsx";
-import CitiesPage from "./pages/citiesPage/CitiesPage.jsx";
-import CityDetailPage from "./pages/cityDetailPage/CityDetailPage.jsx";
-import NotFound from "./pages/notFound/NotFound.jsx";
+import CurrentWeather from './pages/currentWeather/CurrentWeather.jsx';
+import Forecast from './pages/forecast/Forecast.jsx';
+import CitiesPage from './pages/citiesPage/CitiesPage.jsx';
+import CityDetailPage from './pages/cityDetailPage/CityDetailPage.jsx';
+import NotFound from './pages/notFound/NotFound.jsx';
 
 function App() {
     const { isAuth, logout } = useContext(AuthContext);
@@ -20,11 +20,12 @@ function App() {
         <>
             <NavBar
             isAuth = {isAuth}
-            logout = {logout}/>
+            logout = {logout}
+            />
             <div className="content">
                 <Routes>
                     <Route path="/" element={<Home />}/>
-                    <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/login"/>}/>
+                    <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/signin"/>}/>
                     <Route path="/signin" element={<SignIn />}/>
                     <Route path="/signup" element={<SignUp />}/>
                     <Route path="/currentWeather" element={<CurrentWeather />}/>

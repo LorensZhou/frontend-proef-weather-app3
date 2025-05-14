@@ -53,11 +53,13 @@ function CityDetailPage() {
 
     return (
         <div>
-            <Button  type="button"
-                     onClick={fetchWeatherData}
-                     variant="primary">
-                ophalen weervoorspelling per uur
-            </Button>
+            <div className="button-container">
+                <Button  type="button"
+                         onClick={fetchWeatherData}
+                         variant="primary">
+                    ophalen weervoorspelling per uur
+                </Button>
+            </div>
             {error && <ErrorMessage
                        message="Het is niet gelukt om de weervoorspellingen op te halen"/>}
             {loading && <Loading

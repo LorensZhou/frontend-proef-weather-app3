@@ -10,15 +10,15 @@ function AuthContextProvider( { children } ) {
   const [ auth, setAuth ] = useState( {
     isAuth: false,
     user: null,
-    status: 'pending',
+    status: "pending",
   } );
   const navigate = useNavigate();
-  console.log( 'auth1', auth );
+  console.log( "auth1", auth );
 
   // MOUNTING EFFECT
   useEffect( () => {
     // haal de JWT op uit Local Storage
-    const storedToken = localStorage.getItem( 'token' );
+    const storedToken = localStorage.getItem( "token" );
     // als de token bestaat en geldig is, log de gebruiker in
     if (storedToken && isValidToken(storedToken)) {
       const decoded = jwtDecode( storedToken );
@@ -29,19 +29,19 @@ function AuthContextProvider( { children } ) {
       setAuth({
           isAuth: false,
           user: null,
-          status: 'done',
+          status: "done",
         } );
     }
   }, [] );
 
   const login = ( jwtToken ) =>{
     // zet de token in de Local Storage
-    localStorage.setItem( 'token', jwtToken );
+    localStorage.setItem( "token", jwtToken );
     // decode de token zodat we de ID van de gebruiker hebben en data kunnen ophalen voor de context
     const decodedToken = jwtDecode( jwtToken );
 
     // geef de ID, token en redirect-link mee aan de fetchUserData functie (staat hieronder)
-    void fetchUserData( decodedToken.sub, jwtToken, '/profile' );
+    void fetchUserData( decodedToken.sub, jwtToken, "/profile" );
     // link de gebruiker door naar de profielpagina
     // navigate('/profile');
   }
@@ -56,7 +56,7 @@ function AuthContextProvider( { children } ) {
           Authorization: `Bearer ${ jwtToken }`,
         },
       } );
-      console.log('Gebruiker is ingelogd!:', jwtToken);
+      console.log("Gebruiker is ingelogd!:", jwtToken);
       // zet de gegevens in de state
       setAuth( {
         isAuth: true,
@@ -65,7 +65,7 @@ function AuthContextProvider( { children } ) {
           email: response.data.email,
           id: response.data.id,
         },
-        status: 'done',
+        status: "done",
       } );
       console.log("navigate bij login");
       // als er een redirectUrl is, ga daarheen
@@ -79,20 +79,20 @@ function AuthContextProvider( { children } ) {
       setAuth( {
         isAuth: false,
         user: null,
-        status: 'done',
+        status: "done",
       } );
     }
   }
 
   const logout = () =>{
-    console.log( 'Gebruiker is uitgelogd!' );
+    console.log( "Gebruiker is uitgelogd!" );
     localStorage.removeItem("token");
     setAuth( {
       isAuth: false,
       user: null,
-      status: 'done',
+      status: "done",
     } );
-    navigate( '/' );
+    navigate( "/" );
   }
 
   const contextData = {
@@ -104,7 +104,7 @@ function AuthContextProvider( { children } ) {
 
   return (
       <AuthContext.Provider value={ contextData }>
-        { auth.status === 'done' ? children : <p>Loading...</p> }
+        { auth.status === "done" ? children : <p>Loading...</p> }
       </AuthContext.Provider>
   );
 }

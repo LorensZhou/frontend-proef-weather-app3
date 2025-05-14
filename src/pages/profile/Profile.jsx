@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
 import './Profile.css';
-import SearchableInput from "../../components/searchableInput/SearchableInput.jsx";
-import cities from "../../constants/cities.js";
-import getLocalStorageCities from "../../helper/getLocalStorageCities.js";
-import sortedWithoutEmptyString from "../../helper/sortedWithoutEmptyString.js";
-import Loading from "../../components/loading/Loading.jsx";
-import ErrorMessage from "../../components/errorMessage/ErrorMessage.jsx";
+import SearchableInput from '../../components/searchableInput/SearchableInput.jsx';
+import cities from '../../constants/cities.js';
+import getLocalStorageCities from '../../helper/getLocalStorageCities.js';
+import sortedWithoutEmptyString from '../../helper/sortedWithoutEmptyString.js';
+import Loading from '../../components/loading/Loading.jsx';
+import ErrorMessage from '../../components/errorMessage/ErrorMessage.jsx';
+import Button from "../../components/button/Button.jsx";
 
 function Profile() {
   const [profileData, setProfileData] = useState({});
@@ -18,6 +19,7 @@ function Profile() {
 
   const [error, toggleError]  = useState(false);
   const [loading, toggleLoading] = useState(false);
+  const [saveBtnDisabled, tglSaveBtnDisabled] = useState(true);
 
   const [city1, setCity1] = useState("");
   const [city2, setCity2] = useState("");
@@ -26,12 +28,12 @@ function Profile() {
   const [city5, setCity5] = useState("");
   const [city6, setCity6] = useState("");
 
-  const [city1Disabled, togCity1Disabled] = useState(true);
-  const [city2Disabled, togCity2Disabled] = useState(true);
-  const [city3Disabled, togCity3Disabled] = useState(true);
-  const [city4Disabled, togCity4Disabled] = useState(true);
-  const [city5Disabled, togCity5Disabled] = useState(true);
-  const [city6Disabled, togCity6Disabled] = useState(true);
+  const [city1Disabled, tglCity1Disabled] = useState(true);
+  const [city2Disabled, tglCity2Disabled] = useState(true);
+  const [city3Disabled, tglCity3Disabled] = useState(true);
+  const [city4Disabled, tglCity4Disabled] = useState(true);
+  const [city5Disabled, tglCity5Disabled] = useState(true);
+  const [city6Disabled, tglCity6Disabled] = useState(true);
 
   const handleSearch1 = (value) => setCity1(value);
   const handleSearch2 = (value) => setCity2(value);
@@ -41,12 +43,12 @@ function Profile() {
   const handleSearch6 = (value) => setCity6(value);
 
     function citiesDisabled(toggle){
-        togCity1Disabled(toggle);
-        togCity2Disabled(toggle);
-        togCity3Disabled(toggle);
-        togCity4Disabled(toggle);
-        togCity5Disabled(toggle);
-        togCity6Disabled(toggle);
+        tglCity1Disabled(toggle);
+        tglCity2Disabled(toggle);
+        tglCity3Disabled(toggle);
+        tglCity4Disabled(toggle);
+        tglCity5Disabled(toggle);
+        tglCity6Disabled(toggle);
     }
 
     function handleCitiesDisabledFalse() {
@@ -58,7 +60,7 @@ function Profile() {
         const allCities = [city1, city2, city3, city4, city5, city6,];
 
         const sortedCityNames =  sortedWithoutEmptyString(allCities);
-        if (typeof localStorage !== 'undefined') { // Dubbele check localStorage beschikbaarheid
+        if (typeof localStorage !== "undefined") { // Dubbele check localStorage beschikbaarheid
             const numEntries = sortedCityNames.length;
             sortedCityNames.forEach((city, index) => {
                 localStorage.setItem( `city${index + 1}`, city ); // opslaan gesorteerde plaatsnamen in localStorage
@@ -75,22 +77,26 @@ function Profile() {
             setCity6(localStorage.getItem("city6"));
 
             citiesDisabled(true);
+            tglSaveBtnDisabled(true);
         }
 
         console.log("sortedCityNames", sortedCityNames);
     }
 
   useEffect(() => {
+    //disable opslaan button bij mounting
+    tglSaveBtnDisabled(true);
+
     // we halen de pagina-content op in de mounting-cycle
     async function fetchProfileData() {
       toggleError(false);
       toggleLoading(true);
 
       // haal de token uit de Local Storage om in het GET-request te bewijzen dat we geauthoriseerd zijn
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       try {
-        const result = await axios.get('http://localhost:3000/660/private-content', {
+        const result = await axios.get("http://localhost:3000/660/private-content", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -118,6 +124,12 @@ function Profile() {
       if (citiesFromStorage.city6 !== undefined) setCity6(citiesFromStorage.city6); else setCity6("");
 
   }, []);
+
+  useEffect(() => {
+      if (!city1Disabled) {
+          tglSaveBtnDisabled(false);
+      }
+  }, [city1Disabled]);
 
   return (
       <>
@@ -219,8 +231,12 @@ function Profile() {
                       </div>
                   </div>
                   <div className="button-container-flex">
-                      <button type="submit" className="submit-button-flex">Opslaan plaatsen</button>
-                      <button type="button" className="updating-button-flex" onClick={handleCitiesDisabledFalse}>Wijzigen plaatsen</button>
+                      <Button type="submit"
+                              variant="secundary"
+                              disabled = {saveBtnDisabled}>Opslaan plaatsen</Button>
+                      <Button type="button"
+                              variant="secundary"
+                              onClick={handleCitiesDisabledFalse}>Wijzigen plaatsen</Button>
                   </div>
               </form>
           </section>

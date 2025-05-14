@@ -1,6 +1,6 @@
 import './Input.css';
 
-function Input({ type, id, name, labelText, required, handleChange, value, maxValue, minValue }) {
+function Input({ type, id, name, labelText, required, handleChange, value, maxValue, minValue, disabled = false }) {
     return (
         <label htmlFor={id}>
             {labelText}
@@ -13,6 +13,7 @@ function Input({ type, id, name, labelText, required, handleChange, value, maxVa
                 onChange={handleChange}
                 max={maxValue}
                 min={minValue}
+                disabled={disabled}
             />
         </label>
     );
